@@ -1,0 +1,28 @@
+{
+   "groupId"            : "de.kuriositaet"
+  ,"artifactId"         : "pomerator"
+  ,"version"            : "0.0.3"
+  ,"projectName"        : "pomerator"
+  ,"description"        : "attempt at making dealing with pom and maven central bearable"
+  ,"url"                : "url"
+  ,"licenseName"        : "MIT"
+  ,"licenseURL"         : "https://opensource.org/licenses/MIT"
+  ,"scmURL"             : "https://github.com/a2800276/pomerator.git"
+  ,"developerName"      : "Tim Becker"
+  ,"developerEmail"     : "tim@kuriositaet.de"
+  ,"developerURL"       : "http://www.kuriositaet.de"
+  ,"developerId"        : "a2800276"
+  ,"dependencies"       : [
+     {
+        "groupId"    : "de.kuriositaet"
+       ,"artifactId" : "utils"
+       ,"version"    : "[0.0.1,)"
+     }
+  ]
+
+  ,"sources"            : ["src"]
+  ,"classes"            : ["out/production/pomerator/"]
+  ,"output"             : "artifacts"
+  ,"keyId"              : "A4B924E5"
+
+}

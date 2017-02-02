@@ -1,3 +1,4 @@
 *.swp
 test.jar
 test*.jar
+*.delete.*
