@@ -2,3 +2,6 @@
 test.jar
 test*.jar
 *.delete.*
+.pgp_config.json
+secring.gpg
+.idea
