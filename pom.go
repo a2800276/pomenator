@@ -31,10 +31,9 @@ type POMConfig struct {
 	DeveloperURL   string       `json:"developerURL"`
 	DeveloperID    string       `json:"developerId"`
 	Dependencies   []Dependency `json:"dependencies"`
-	Sources        []string     `json:"sources"`
-	Classes        []string     `json:"classes"`
-	Output         string       `json:"output"`
-	KeyID          string       `json:"keyId"`
+	SourceDirs     []string     `json:"sources"`
+	ClassDirs      []string     `json:"classes"`
+	OutputDir      string       `json:"output"`
 }
 
 var pomTemplate = `<project xmlns="http://maven.apache.org/POM/4.0.0"       
