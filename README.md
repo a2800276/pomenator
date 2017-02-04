@@ -66,7 +66,7 @@ guessed it -- you're not done yet.
 - Your repository, i.e. your upload is way at the bottom of the list.
   Scroll down. Keep scrolling.
 - All the millions of other Repos are named "central_bundle-12345",
-  yours will be called "<your_group_id>-1234"
+  yours will be called "{your_group_id}-1234"
 - If you don't find your upload on the list, it's likely that the
   mainframe is down or has not processed the batch yet. You'll need to
   click on "Refresh"
@@ -84,9 +84,9 @@ guessed it -- you're not done yet.
 
 This is probably a good time to learn assembler or take up heroin.
 Because you're only almost done. You still need to go back to Jira
-(https://issues.sonatype.org) and activate synchronization. You do this
+(https://issues.sonatype.org) and activate synchronization. *You do this
 my adding a comment to the original issue you used to ask for a
-group_id. 
+group_id*. 
 
 The comment part is a one time only thing. Once the synchronization is
 set up, your uploads will eventually (this is dependant on when the guys
@@ -94,7 +94,7 @@ at sonatype have a chance to run down to the Staples to buy new
 punchcards for their mainframe) show up on maven central. Sooner or
 later, your stuff should show up for searches on search.maven.org and
 the actual artefacts will be located at
-http://repo1.maven.org/maven2/<group_seperated_by_slashes>/<artifact_id>/<version>/
+http://repo1.maven.org/maven2/{group_seperated_by_slashes}/{artifact_id}/{version}/
 
 ## OMGWTFBBQ you can't be serious!?
 
