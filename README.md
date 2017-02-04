@@ -67,6 +67,9 @@ This is probably a good time to take up smoking. Because -- you've
 guessed it -- you're not done yet.
 
 - Click on "Staging Repositories" (in the left navigation)
+
+<img alt="Navigation" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png" width = "33%">
+
 - Don't get distracted by the fact that there's a million other people's
   repositories (that's just what they call them, don't try to make sense
   of the name "repository") in the list.
@@ -87,7 +90,7 @@ guessed it -- you're not done yet.
   something. It's very likely you make a mistake the first couple of
   times you try to release.
 
-<img alt="Super Fancy Tree" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_super_fancy_tree.png" width = "33%">
+<img alt="Super Fancy Tree" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_super_fancy_tree.png" width = "50%">
 
 - If there are no errors in the fancy html tree widgets, the "Release"
   button at the top of the page should no longer be greyed out. You can
