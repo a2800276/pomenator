@@ -43,7 +43,7 @@ Next, you need to:
 - Don't try to figure out what any of the word crap there means. Seriously.
 - Click on the link "Staging Upload" (in the left navigation)
 
-<img src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png" width = "33%">
+<img alt="Navigation" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png" width = "33%">
 
 - Select the "Upload mode" you're using (more on this later, for now,
   let's assume you have a pom and a bunch of signed jars.) Select "POM"
@@ -71,7 +71,7 @@ guessed it -- you're not done yet.
   repositories (that's just what they call them, don't try to make sense
   of the name "repository") in the list.
 
-<img alt="Other People's Repositories" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_upload.png" width = "33%">
+<img alt="Other People's Repositories" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_opp.png" width = "33%">
 
 - Your repository, i.e. your upload is way at the bottom of the list.
   Scroll down. Keep scrolling.
