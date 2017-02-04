@@ -16,7 +16,7 @@ Created-By: 0.0.1 (Pomenator)
 // utility to create jar files.
 
 func GenerateJarFromDirs(jarFn string, dirs ...string) error {
-	jar, err := os.OpenFile(jarFn, os.O_WRONLY|os.O_CREATE, 0664)
+	jar, err := os.OpenFile(jarFn, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0664)
 	if err != nil {
 		return err
 	}

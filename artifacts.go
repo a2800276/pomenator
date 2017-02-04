@@ -13,7 +13,10 @@ func GenerateAllArtifacts(fn string, pgpCfg PGPConfig) error {
 	}
 	for _, cfg := range cfgs {
 		if err := generateArtifacts(cfg, pgpCfg); err != nil {
+			fmt.Printf("An error occured, sorry. (%s)\n", err.Error())
 			return err
+		} else {
+			fmt.Printf("Probably successful, please check that everything went as expected\n")
 		}
 	}
 	return nil
@@ -73,15 +76,28 @@ func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
 	if err = Sign(javadocFn, pgpCfg); err != nil {
 		return
 	}
+	if err = os.RemoveAll(javadocDir); err != nil {
+		return
+	}
 
 	bundleFn := fmt.Sprintf("%s/bundle-%s.jar", cfg.OutputDir, a_v)
-	return GenerateJarFromDirs(bundleFn, tempDir)
+	if err = GenerateJarFromDirs(bundleFn, tempDir); err != nil {
+		return
+	}
+
+	if err = os.RemoveAll(tempDir); err != nil {
+		fmt.Printf("[Warn] could not remove %s (%s), you'll need to clean up manually", tempDir, err.Error())
+	}
+
+	repo, err := UploadBundle(bundleFn)
+	fmt.Printf("Upload complete, assigned: %s\n", repo)
+
+	return ReleaseRepo(repo)
 }
 
 func generatePOM() {}
 func makeDirIfNotExists(dir string) error {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		println(dir)
 		return os.Mkdir(dir, os.ModePerm)
 	}
 	return nil
