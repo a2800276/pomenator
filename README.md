@@ -56,6 +56,9 @@ Next, you need to:
   - a jar file containing the javadoc generated from the sources
   - for each of the jar files and the POM file you need to upload
     a PGP signature (*.ASC) (see below)
+
+![Upload](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_upload.png)
+
 - You do this by selecting each of the 7 files individually and then
   clicking "Add Artifact", finally hit: "Upload Artifacts"
 
@@ -66,6 +69,9 @@ guessed it -- you're not done yet.
 - Don't get distracted by the fact that there's a million other people's
   repositories (that's just what they call them, don't try to make sense
   of the name "repository") in the list.
+
+![Other People's Repositories](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_opp.png)
+
 - Your repository, i.e. your upload is way at the bottom of the list.
   Scroll down. Keep scrolling.
 - All the millions of other Repos are named `central_bundle-12345`,
@@ -79,6 +85,9 @@ guessed it -- you're not done yet.
   you may find an indication of an error, in case you've missed
   something. It's very likely you make a mistake the first couple of
   times you try to release.
+
+![Super Fancy Tree](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_super_fancy_tree.png)
+
 - If there are no errors in the fancy html tree widgets, the "Release"
   button at the top of the page should no longer be greyed out. You can
   click on that.
@@ -229,10 +238,16 @@ It's probably a good idea to do this, because:
 - if you're at all like me, you'll end up publishing your
   `.secrets.json` to github sooner or later
 
-To get a token, click on your username at the top right corner of nexus
-(oss.sonatype.org) choose "User Token" in the drop down that appears and
+To get a token, click on username->Profile at the top right corner of nexus
+(oss.sonatype.org).
+
+![User Profile](Profil://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_token_profile.png )
+
+Then choose "User Token" in the drop down that appears and
 click the "Access User Token" button. Use this instead of your real
 username and password.
+
+![User Token](Profil://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_token_token.png )
 
 Also note that while the main pom config allows you to define a number
 of different artifacts/projects in a single file, all of them will be
