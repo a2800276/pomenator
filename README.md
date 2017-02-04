@@ -65,8 +65,8 @@ guessed it -- you're not done yet.
   of the name "repository") in the list.
 - Your repository, i.e. your upload is way at the bottom of the list.
   Scroll down. Keep scrolling.
-- All the millions of other Repos are named "central_bundle-12345",
-  yours will be called "{your_group_id}-1234"
+- All the millions of other Repos are named `central_bundle-12345`,
+  yours will be called `{your_group_id}-1234`
 - If you don't find your upload on the list, it's likely that the
   mainframe is down or has not processed the batch yet. You'll need to
   click on "Refresh"
@@ -94,7 +94,8 @@ at sonatype have a chance to run down to the Staples to buy new
 punchcards for their mainframe) show up on maven central. Sooner or
 later, your stuff should show up for searches on search.maven.org and
 the actual artefacts will be located at
-http://repo1.maven.org/maven2/{group_seperated_by_slashes}/{artifact_id}/{version}/
+
+    http://repo1.maven.org/maven2/{group_seperated_by_slashes}/{artifact_id}/{version}/
 
 ## OMGWTFBBQ you can't be serious!?
 
@@ -111,7 +112,7 @@ completely restructuring my project to use maven to manage my project.
 
 Ok. whatever
 
-### User bundle uploads
+### Use bundle uploads
 
 In case you are stuck doing this manually, here's the single best piece
 of advice I can offer you: sonatype/nexus accepts "bundle" uploads. This
@@ -130,29 +131,28 @@ this: read [this blog
 post](http://blog.sonatype.com/2012/07/learning-the-nexus-rest-api-read-the-docs-or-fire-up-a-browser/)
 which whines on about how hard it is to write up-to-date documentation
 for a REST API and then explains how to use the Chrome network inspector
-to see what calls their web frontend makes. I wish I were joking.
+to see what REST-calls their web frontend makes. I wish I were joking.
 
 Here is all the documentation you need:
 
 - create the POM, jars and signatures as outlined above.
 - pack them all together into a single jar
 - upload them to: https://oss.sonatype.org/service/local/staging/bundle_upload
-- The upload is a POST with a raw body, none of that mime-multype crud
-- The upload can be authenticated with HTTP Basic
+- The upload is a POST with a raw body, don't need none of that mime-multipart crud
+- All HTTP requests can be authenticated with HTTP Basic Authentication
 - A successful upload returns status 201 and a bunch of JSON that
   contains an id in a property name `stagedRepositoryIds`
 - Finally, you "release" your upload by POSTing to: 
   https://oss.sonatype.org/service/local/staging/bulk/promote
-- This request is also authenticated with Basic Authentication
 - It contains a Content-Type header indicating Javascript
 - It contains a body (again, raw) like this:
     
-    {"data":{"autoDropAfterRelease":true,"description":"<WHATEVER>","stagedRepositoryIds":["<YOUR_REPO_ID>"]}}
+    {"data":{"autoDropAfterRelease":true,"description":"{WHATEVER}","stagedRepositoryIds":["{YOUR_REPO_ID}"]}}
 
-- If you try to release too early, you'll get some sort of 500 error
-  indicating that the repo is still "open" or "transitioning". I assume
-  this means that the folks at sonatype are at the blacksmith's getting
-  iron rings made for their core memory.
+- If you try to call the release endpoint too early, you'll get some
+  sort of 500 error indicating that the repo is still "open" or
+  "transitioning". I assume this means that the folks at sonatype are at
+  the blacksmith's getting iron rings made for their core memory.
 - It seems that waiting 10 seconds between the upload and the
   'release' call is usually sufficient to resolve the 500 problem.
 
@@ -165,7 +165,8 @@ toolchain.
 
 The following notes are therefore for myself:
 
-- create a .json file corresponding to the required pom data. A sample
+- create a .json file corresponding to the required pom data. A
+  [sample](https://github.com/a2800276/pomenator/blob/master/test/bootstrap.json)
   is in the `test` directory.
 - additionally, the json file contains the following properties:
   - sources : an array of directories containing sources
@@ -174,7 +175,7 @@ The following notes are therefore for myself:
     get dumped.
 
 The main tool is the `bin/pomenator` tool. It is written in Go. I
-started out writing it in Java. Java is fine, but it wasn't worth the
+[started out](https://github.com/a2800276/pomerator) writing it in Java. Java is fine, but it wasn't worth the
 effort to learn how to do an HTTP POST using the built in
 HttpUrlConnection. Running the tool gives you a set of flags you can use:
 
@@ -243,10 +244,10 @@ one time setup thing. Here's the short version:
 - create an openpgp signing key for your project. My advice is to use
   the following invocation:
 
-    gpg --no-default-keyring \
-        --keyring ./pubring.gpg \
-        --secret-keyring ./secring.gpg \
-        --gen-key
+      gpg --no-default-keyring \
+          --keyring ./pubring.gpg \
+          --secret-keyring ./secring.gpg \
+          --gen-key
 
 - Note your `gpg` command may be called `gpg2`.
 - `--no-default-keyring` means to not store the new key in the system
@@ -293,7 +294,7 @@ Now you need to figure out the key id:
 
 Your keyring should only contain a single key, so you get output like:
 
-    ./pompubring.gpg
+    ./pubring.gpg
     ----------------
     pub   3072D/4B8FD19D 2017-02-03
     uid       [ultimate] DONT TRUST THIS KEY (TEST SIGNING KEY DONT TRUST SOFTWARE SIGNED WITH THIS KEY!) <test@example.com>
@@ -309,7 +310,7 @@ Of course you need to substitute your own key id. You can also provide a
 custom keyserver to publish the key on using the `--keyserver` argument
 as sonatype suggests. I have no idea why they suggest this, or if they
 enforce it. Anyway, just to keep you on your toes:
-hkp://pool.sks-keyservers.net is the key server they'd like you to use.
+`hkp://pool.sks-keyservers.net` is the key server they'd like you to use.
 
 Finally, to sign the jars generating the ASC files that you need for
 Sonatype to accept your uploads:
@@ -337,7 +338,7 @@ file. It will say "BAD" in capital letters if it doesn't.
 That said, the tool doesn't generate and publish keys, but it does take
 care of all the signature generation once you're set up, so the signing
 stage above is only in case you want to do hings manually and nobody
-ever verifies signatures anyway so just forget about the --verify
+ever verifies signatures anyway so just forget about the `--verify`
 option.
 
 
