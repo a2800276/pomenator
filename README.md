@@ -43,7 +43,7 @@ Next, you need to:
 - Don't try to figure out what any of the word crap there means. Seriously.
 - Click on the link "Staging Upload" (in the left navigation)
 
-![Navigation](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png)
+<img src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png" width = "33%">
 
 - Select the "Upload mode" you're using (more on this later, for now,
   let's assume you have a pom and a bunch of signed jars.) Select "POM"
@@ -57,7 +57,8 @@ Next, you need to:
   - for each of the jar files and the POM file you need to upload
     a PGP signature (*.ASC) (see below)
 
-![Upload](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_upload.png)
+<img alt="Upload" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_upload.png" width = "33%">
+
 
 - You do this by selecting each of the 7 files individually and then
   clicking "Add Artifact", finally hit: "Upload Artifacts"
@@ -70,7 +71,7 @@ guessed it -- you're not done yet.
   repositories (that's just what they call them, don't try to make sense
   of the name "repository") in the list.
 
-![Other People's Repositories](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_opp.png)
+<img alt="Other People's Repositories" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_upload.png" width = "33%">
 
 - Your repository, i.e. your upload is way at the bottom of the list.
   Scroll down. Keep scrolling.
@@ -86,7 +87,7 @@ guessed it -- you're not done yet.
   something. It's very likely you make a mistake the first couple of
   times you try to release.
 
-![Super Fancy Tree](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_super_fancy_tree.png)
+<img alt="Super Fancy Tree" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_super_fancy_tree.png" width = "33%">
 
 - If there are no errors in the fancy html tree widgets, the "Release"
   button at the top of the page should no longer be greyed out. You can
@@ -241,13 +242,13 @@ It's probably a good idea to do this, because:
 To get a token, click on username->Profile at the top right corner of nexus
 (oss.sonatype.org).
 
-![User Profile](Profil://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_token_profile.png )
+<img alt="User Profile" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_token_profile.png" width = "33%">
 
 Then choose "User Token" in the drop down that appears and
 click the "Access User Token" button. Use this instead of your real
 username and password.
 
-![User Token](Profil://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_token_token.png )
+<img alt="User Token" src="https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_token_token.png" width = "33%">
 
 Also note that while the main pom config allows you to define a number
 of different artifacts/projects in a single file, all of them will be
