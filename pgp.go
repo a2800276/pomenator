@@ -9,13 +9,15 @@ import (
 	"strconv"
 )
 
-type PGPConfig struct {
+type SecretsConfig struct {
 	SecretKeyringFn string `json:"secring"`
 	KeyID           string `json:"keyId"`
 	SecretKeyPasswd string `json:"passwd"`
+	RepoUser        string `json:"repo_user"`
+	RepoPasswd      string `json:"repo_passwd"`
 }
 
-func LoadPGPConfig(fn string) (c PGPConfig, err error) {
+func LoadSecretsConfig(fn string) (c SecretsConfig, err error) {
 	file, err := os.Open(fn)
 	if err != nil {
 		return
@@ -27,7 +29,7 @@ func LoadPGPConfig(fn string) (c PGPConfig, err error) {
 	return
 }
 
-func Sign(fn string, pgpCfg PGPConfig) error {
+func Sign(fn string, secCfg SecretsConfig) error {
 	ascFn := fmt.Sprintf("%s.asc", fn)
 	asc, err := os.OpenFile(ascFn, os.O_WRONLY|os.O_CREATE, 0664)
 	if err != nil {
@@ -35,7 +37,7 @@ func Sign(fn string, pgpCfg PGPConfig) error {
 	}
 	defer asc.Close()
 
-	entity, err := loadEntity(pgpCfg)
+	entity, err := loadEntity(secCfg)
 	if err != nil {
 		return err
 	}
@@ -51,7 +53,7 @@ func Sign(fn string, pgpCfg PGPConfig) error {
 }
 
 // try to retrieve and decrypt the key identified by the PGPConfig
-func loadEntity(cfg PGPConfig) (signer *openpgp.Entity, err error) {
+func loadEntity(cfg SecretsConfig) (signer *openpgp.Entity, err error) {
 	keyRing, err := os.Open(cfg.SecretKeyringFn)
 	if err != nil {
 		return

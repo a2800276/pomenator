@@ -5,14 +5,14 @@ import (
 	"os"
 )
 
-func GenerateAllArtifacts(fn string, pgpCfg PGPConfig) error {
+func GenerateAllArtifacts(fn string, secCfg SecretsConfig) error {
 	// loadJsonConfig
 	cfgs, err := LoadConfig(fn)
 	if err != nil {
 		return err
 	}
 	for _, cfg := range cfgs {
-		if err := generateArtifacts(cfg, pgpCfg); err != nil {
+		if err := generateArtifacts(cfg, secCfg); err != nil {
 			fmt.Printf("An error occured, sorry. (%s)\n", err.Error())
 			return err
 		} else {
@@ -22,7 +22,7 @@ func GenerateAllArtifacts(fn string, pgpCfg PGPConfig) error {
 	return nil
 }
 
-func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
+func generateArtifacts(cfg POMConfig, secCfg SecretsConfig) (err error) {
 	if err = makeDirIfNotExists(cfg.OutputDir); err != nil {
 		return
 	}
@@ -41,7 +41,7 @@ func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
 	if err = GeneratePOM(pomFn, cfg); err != nil {
 		return
 	}
-	if err = Sign(pomFn, pgpCfg); err != nil {
+	if err = Sign(pomFn, secCfg); err != nil {
 		return
 	}
 
@@ -49,7 +49,7 @@ func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
 	if err = GenerateJarFromDirs(srcFn, cfg.SourceDirs...); err != nil {
 		return
 	}
-	if err = Sign(srcFn, pgpCfg); err != nil {
+	if err = Sign(srcFn, secCfg); err != nil {
 		return
 	}
 
@@ -57,7 +57,7 @@ func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
 	if err = GenerateJarFromDirs(classesFn, cfg.ClassDirs...); err != nil {
 		return
 	}
-	if err = Sign(classesFn, pgpCfg); err != nil {
+	if err = Sign(classesFn, secCfg); err != nil {
 		return
 	}
 
@@ -73,7 +73,7 @@ func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
 	if err = GenerateJarFromDirs(javadocFn, javadocDir); err != nil {
 		return
 	}
-	if err = Sign(javadocFn, pgpCfg); err != nil {
+	if err = Sign(javadocFn, secCfg); err != nil {
 		return
 	}
 	if err = os.RemoveAll(javadocDir); err != nil {
@@ -89,10 +89,10 @@ func generateArtifacts(cfg POMConfig, pgpCfg PGPConfig) (err error) {
 		fmt.Printf("[Warn] could not remove %s (%s), you'll need to clean up manually", tempDir, err.Error())
 	}
 
-	repo, err := UploadBundle(bundleFn)
+	repo, err := UploadBundle(bundleFn, secCfg)
 	fmt.Printf("Upload complete, assigned: %s\n", repo)
 
-	return ReleaseRepo(repo)
+	return ReleaseRepo(repo, secCfg)
 }
 
 func generatePOM() {}

@@ -51,10 +51,7 @@ const releaseWaitSeconds = 10
 // -> {"data":{"autoDropAfterRelease":true,"description":"bumsi!","stagedRepositoryIds":["dekuriositaet-1030"]}}
 // <- 201 : empty
 
-const uid = "a2800276"
-const pwd = "PEZCUWXu%Kb5"
-
-func UploadBundle(fn string) (repoid string, err error) {
+func UploadBundle(fn string, cfg SecretsConfig) (repoid string, err error) {
 	fmt.Printf("uploading: %s to %s\n", fn, sonatype)
 	file, err := os.Open(fn)
 	if err != nil {
@@ -66,7 +63,7 @@ func UploadBundle(fn string) (repoid string, err error) {
 	if err != nil {
 		return
 	}
-	req.SetBasicAuth(uid, pwd)
+	req.SetBasicAuth(cfg.RepoUser, cfg.RepoPasswd)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return
@@ -86,11 +83,11 @@ func UploadBundle(fn string) (repoid string, err error) {
 	return ubr.StagedRepositoryID(), nil
 }
 
-func ReleaseRepo(repo string) error {
-	return releaseRepo(repo, 1)
+func ReleaseRepo(repo string, cfg SecretsConfig) error {
+	return releaseRepo(repo, cfg, 1)
 }
 
-func releaseRepo(repo string, count int) error {
+func releaseRepo(repo string, cfg SecretsConfig, count int) error {
 	if count > releaseMaxTries {
 		return fmt.Errorf("giving up releasing %s, please go to oss.sonatype.org to release manually", repo)
 	}
@@ -105,7 +102,7 @@ func releaseRepo(repo string, count int) error {
 	if err != nil {
 		return err
 	}
-	req.SetBasicAuth(uid, pwd)
+	req.SetBasicAuth(cfg.RepoUser, cfg.RepoPasswd)
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
 
 	resp, err := http.DefaultClient.Do(req)
@@ -130,7 +127,7 @@ func releaseRepo(repo string, count int) error {
 		} else {
 			fmt.Printf("got: %s, retrying\n", body)
 		}
-		return releaseRepo(repo, count+1)
+		return releaseRepo(repo, cfg, count+1)
 
 	default:
 		io.Copy(os.Stdout, resp.Body)
