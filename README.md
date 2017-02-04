@@ -42,6 +42,7 @@ Next, you need to:
   early 90's.
 - Don't try to figure out what any of the word crap there means. Seriously.
 - Click on the link "Staging Upload" (in the left navigation)
+![Navigation](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png)
 - Select the "Upload mode" you're using (more on this later, for now,
   let's assume you have a pom and a bunch of signed jars.) Select "POM"
 - Now upload the POM file (this is done using semi standard html widgets
@@ -129,7 +130,7 @@ Sonatype does not provide any documentation for their REST API (unless
 you have an Admin account) and their official (well blog) advice is
 this: read [this blog
 post](http://blog.sonatype.com/2012/07/learning-the-nexus-rest-api-read-the-docs-or-fire-up-a-browser/)
-which whines on about how hard it is to write up-to-date documentation
+which whines about how hard it is to write up-to-date documentation
 for a REST API and then explains how to use the Chrome network inspector
 to see what REST-calls their web frontend makes. I wish I were joking.
 
@@ -144,10 +145,10 @@ Here is all the documentation you need:
   contains an id in a property name `stagedRepositoryIds`
 - Finally, you "release" your upload by POSTing to: 
   https://oss.sonatype.org/service/local/staging/bulk/promote
-- It contains a Content-Type header indicating Javascript
-- It contains a body (again, raw) like this:
+- which contains a Content-Type header indicating Javascript
+- and contains a body (again, raw) like this:
     
-    {"data":{"autoDropAfterRelease":true,"description":"{WHATEVER}","stagedRepositoryIds":["{YOUR_REPO_ID}"]}}
+      {"data":{"autoDropAfterRelease":true,"description":"{WHATEVER}","stagedRepositoryIds":["{YOUR_REPO_ID}"]}}
 
 - If you try to call the release endpoint too early, you'll get some
   sort of 500 error indicating that the repo is still "open" or
@@ -213,8 +214,9 @@ Should you do this, values provided by flags take precedence over those
 in the config file.
 
 The example above assumes you're using a local keyring (see below on how
-to set this up. You'll need to replace the key id with your own key id,
-the value "A4B924E5" above is an example.
+to set this up). But you can also use a system wide keyring (probably
+located in `~/.gnupg/secring.gpg`) You'll need to replace the key id
+with your own key id, the value "A4B924E5" above is an example.
 
 Note that Nexus allows you to use a special replacement "token" username
 and password so that your real username and password aren't involved.
@@ -223,7 +225,7 @@ It's probably a good idea to do this, because:
 - the tokenised uid/pswd don't allow access to Jira
 - you can't reset your password in Nexus m) ...
 - if you're at all like me, you'll end up publishing your
-  .secrets.json to github sooner or later
+  `.secrets.json` to github sooner or later
 
 To get a token, click on your username at the top right corner of nexus
 (oss.sonatype.org) choose "User Token" in the drop down that appears and
