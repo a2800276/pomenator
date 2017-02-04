@@ -42,7 +42,9 @@ Next, you need to:
   early 90's.
 - Don't try to figure out what any of the word crap there means. Seriously.
 - Click on the link "Staging Upload" (in the left navigation)
+
 ![Navigation](https://raw.githubusercontent.com/a2800276/pomenator/master/doc/sc_nav.png)
+
 - Select the "Upload mode" you're using (more on this later, for now,
   let's assume you have a pom and a bunch of signed jars.) Select "POM"
 - Now upload the POM file (this is done using semi standard html widgets
