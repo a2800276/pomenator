@@ -90,6 +90,9 @@ func generateArtifacts(cfg POMConfig, secCfg SecretsConfig) (err error) {
 	}
 
 	repo, err := UploadBundle(bundleFn, secCfg)
+	if err != nil {
+		return
+	}
 	fmt.Printf("Upload complete, assigned: %s\n", repo)
 
 	return ReleaseRepo(repo, secCfg)
