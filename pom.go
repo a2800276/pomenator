@@ -101,7 +101,7 @@ func LoadConfig(fn string) ([]POMConfig, error) {
 }
 
 func GeneratePOM(fn string, cfg POMConfig) error {
-	pom, err := os.OpenFile(fn, os.O_WRONLY|os.O_CREATE, 0664)
+	pom, err := os.Create(fn)
 	if err != nil {
 		return err
 	}

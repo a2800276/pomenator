@@ -31,7 +31,7 @@ func LoadSecretsConfig(fn string) (c SecretsConfig, err error) {
 
 func Sign(fn string, secCfg SecretsConfig) error {
 	ascFn := fmt.Sprintf("%s.asc", fn)
-	asc, err := os.OpenFile(ascFn, os.O_WRONLY|os.O_CREATE, 0664)
+	asc, err := os.Create(ascFn)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,6 @@ func Sign(fn string, secCfg SecretsConfig) error {
 	}
 	defer jar.Close()
 
-	//func ArmoredDetachSign(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) (err error)
 	return openpgp.ArmoredDetachSign(asc, entity, jar, nil)
 }
 
