@@ -5,14 +5,14 @@ import (
 	"os"
 )
 
-func GenerateAllArtifacts(fn string, secCfg SecretsConfig) error {
+func GenerateAllArtifacts(fn string, secCfg SecretsConfig, noUpload bool) error {
 	// loadJsonConfig
 	cfgs, err := LoadConfig(fn)
 	if err != nil {
 		return err
 	}
 	for _, cfg := range cfgs {
-		if err := generateArtifacts(cfg, secCfg); err != nil {
+		if err := generateArtifacts(cfg, secCfg, noUpload); err != nil {
 			fmt.Printf("An error occured, sorry. (%s)\n", err.Error())
 			return err
 		} else {
@@ -22,7 +22,7 @@ func GenerateAllArtifacts(fn string, secCfg SecretsConfig) error {
 	return nil
 }
 
-func generateArtifacts(cfg POMConfig, secCfg SecretsConfig) (err error) {
+func generateArtifacts(cfg POMConfig, secCfg SecretsConfig, noUpload bool) (err error) {
 	if err = makeDirIfNotExists(cfg.OutputDir); err != nil {
 		return
 	}
@@ -67,7 +67,7 @@ func generateArtifacts(cfg POMConfig, secCfg SecretsConfig) (err error) {
 	}
 
 	if err = GenerateJavadoc(cfg.SourceDirs, javadocDir); err != nil {
-		return
+		return fmt.Errorf("Could not generate javadoc: %v", err)
 	}
 	javadocFn := fmt.Sprintf("%s/%s-javadoc.jar", tempDir, a_v)
 	if err = GenerateJarFromDirs(javadocFn, javadocDir); err != nil {
@@ -87,6 +87,11 @@ func generateArtifacts(cfg POMConfig, secCfg SecretsConfig) (err error) {
 
 	if err = os.RemoveAll(tempDir); err != nil {
 		fmt.Printf("[Warn] could not remove %s (%s), you'll need to clean up manually", tempDir, err.Error())
+	}
+
+	if noUpload {
+		fmt.Printf("not uploading")
+		return
 	}
 
 	repo, err := UploadBundle(bundleFn, secCfg)

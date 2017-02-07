@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+var GenerateJavadocVerbosely = false
+
 func GenerateJavadoc(sourceDirs []string, output string) error {
 	args := []string{"-d", output}
 	javaFiles := findJavaFiles(sourceDirs)
@@ -16,8 +18,10 @@ func GenerateJavadoc(sourceDirs []string, output string) error {
 	//	fmt.Printf("%d : %s\n", i, j)
 	//}
 	javadocCmd := exec.Command("javadoc", args...)
-	//javadocCmd.Stdout = os.Stdout
-	//javadocCmd.Stderr = os.Stderr
+	if GenerateJavadocVerbosely {
+		javadocCmd.Stdout = os.Stdout
+		javadocCmd.Stderr = os.Stderr
+	}
 	return javadocCmd.Run()
 
 }

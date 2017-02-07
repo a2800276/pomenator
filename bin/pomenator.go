@@ -14,6 +14,8 @@ var keyID = flag.String("key-id", "", "pgp key id")
 var repoUser = flag.String("repo-user", "", "sonatype username")
 var repoPasswd = flag.String("repo-passwd", "", "sonatype passwd")
 var cfgFn = flag.String("secrets", "./.secrets.json", "json file containing pgp keyring, id and password, and your sonatype id, passwd")
+var noUpload = flag.Bool("no-upload", false, "only generate artefacts, don't upload to nexus")
+var javadocVerbose = flag.Bool("javadoc-verbose", false, "dump output of javadoc command")
 
 func main() {
 
@@ -45,7 +47,9 @@ func main() {
 		usage("missing mandatory config\n")
 	}
 
-	if err := pomenator.GenerateAllArtifacts(*pomCfg, cfg); err != nil {
+	pomenator.GenerateJavadocVerbosely = *javadocVerbose
+
+	if err := pomenator.GenerateAllArtifacts(*pomCfg, cfg, *noUpload); err != nil {
 		usage("error: %v\n", err)
 	}
 }
